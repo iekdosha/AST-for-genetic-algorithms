@@ -1,3 +1,5 @@
+package Tree;
+
 /**
  * Created by itzhak on 23-Mar-18.
  */
@@ -12,6 +14,11 @@ public class Constant implements Node {
     @Override
     public Double parse() {
         return value;
+    }
+
+    @Override
+    public String nodeStr() {
+        return value.toString();
     }
 
 }

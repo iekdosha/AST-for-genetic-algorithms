@@ -1,3 +1,5 @@
+package Tree;
+
 /**
  * Created by itzhak on 23-Mar-18.
  */
@@ -16,7 +18,10 @@ public class Variable implements Node {
         return context.getVarValue(this.id);
     }
 
-
+    @Override
+    public String nodeStr() {
+        return "VAR"+id.toString();
+    }
 
 
 

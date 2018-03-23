@@ -1,3 +1,7 @@
+package Tree.functionals;
+
+import Tree.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +12,15 @@ public abstract class  FunctionalNode implements Node {
 
     private List<Node> children;
 
-    private int childrenNum;
+    private final int childrenNum;
 
-    public FunctionalNode(){
-        this(0);
-    }
+//    public FunctionalNode(){
+//        this(0);
+//    }
 
     public FunctionalNode(int childrenNum){
-        this.setChildrenNum(childrenNum);
+        this.childrenNum = childrenNum;
+        this.children = new ArrayList<>(this.childrenNum);
     }
 
     public List<Node> getChildren() {
@@ -26,11 +31,11 @@ public abstract class  FunctionalNode implements Node {
         return childrenNum;
     }
 
-    protected void setChildrenNum(int childrenNum) {
-        this.childrenNum = childrenNum;
-
-        this.children = new ArrayList<>(this.childrenNum);
-    }
+//    protected void setChildrenNum(int childrenNum) {
+//        this.childrenNum = childrenNum;
+//
+//        this.children = new ArrayList<>(this.childrenNum);
+//    }
 
     public boolean setChild(int index, Node child){
         if(index < 0 ||  index >= childrenNum){
@@ -51,5 +56,20 @@ public abstract class  FunctionalNode implements Node {
         return false;
     }
 
+    protected Node getChild(int index){
+        if(index < 0 ||  index >= childrenNum){
+            return null;
+        }
+        return children.get(index);
+    }
+
+    protected Double parseChild(int index){
+        Node node = this.getChild(index);
+        if(node != null){
+            return node.parse();
+        }
+        return Double.NaN;
+
+    }
 
 }
