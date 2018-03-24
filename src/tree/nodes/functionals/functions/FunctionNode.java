@@ -18,7 +18,7 @@ public abstract class FunctionNode extends FunctionalNode {
 
         HashMap<Class,Integer> map = new HashMap<>();
         map.put(ArithmeticFunctionNode.class,4);
-        map.put(IfElseNode.class,4);
+        map.put(IfElseNode.class,3);
 
         Class c = ItemRandomizer.<Class>rand(map);
 

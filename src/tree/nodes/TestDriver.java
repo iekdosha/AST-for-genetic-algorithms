@@ -14,12 +14,13 @@ public class TestDriver {
 
 
 
-        Context context = new Context(3.3,4.3, 5.55);
-
+        Context context = new Context(0.123 ,3.456, 6.789);
         Tree tree = new Tree(context);
-        tree.randomTree(3,5);
+        tree.randomTree(2,5);
         System.out.println(tree);
         System.out.println("value for test context: " + tree.parse());
+
+
 
     }
 
