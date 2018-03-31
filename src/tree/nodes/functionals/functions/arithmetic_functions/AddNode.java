@@ -5,6 +5,8 @@ package tree.nodes.functionals.functions.arithmetic_functions;
  */
 public class AddNode extends ArithmeticFunctionNode {
 
+    public static Double weight = 1.0;
+
     @Override
     public Double parse() {
         return this.parseChild(0) + this.parseChild(1);
@@ -12,7 +14,7 @@ public class AddNode extends ArithmeticFunctionNode {
 
     @Override
     public String nodeStr() {
-        return "+";
+        return "ADD";
     }
 
 

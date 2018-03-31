@@ -5,6 +5,8 @@ import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
 import tree.nodes.functionals.functions.FunctionNode;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by itzhak on 24-Mar-18.
  */
@@ -12,6 +14,9 @@ public class Tree {
     private Node root;
     private Context context;
     private int tabCount;
+
+
+
 
     public Tree(Context context){
         this(null, context);
@@ -31,13 +36,17 @@ public class Tree {
     }
 
     public void randomTree(Integer minDepth, Integer maxDepth){
-        this.root = FunctionNode.randomFunctionNode().randomTree(minDepth,maxDepth,context);
+        minDepth = Math.min(minDepth,maxDepth);
+        if(minDepth <= 0) {
+            throw  new IllegalArgumentException("Arguments min/max depth must be at least 1");
+        }
+        this.root = ((FunctionalNode)FunctionNode.randomNode()).randomTree(minDepth,maxDepth,context);
     }
 
     private String getTabs(){
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < tabCount ; i++){
-            sb.append("\t");
+            sb.append("\t|");
         }
         return sb.toString();
     }
@@ -59,6 +68,8 @@ public class Tree {
     }
 
     public String toString(){
+
+        System.out.println("");
         this.tabCount = 0;
         return treeStr(root);
     }

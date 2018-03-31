@@ -8,4 +8,8 @@ public interface Node {
     Double parse();
     //Boolean semanticAnalyze();
     String nodeStr();
+
+    public static Node randomNode(){
+        return null;
+    }
 }

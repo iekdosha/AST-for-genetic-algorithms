@@ -1,8 +1,11 @@
 package tree.nodes.functionals.functions;
 
+import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
 import tree.nodes.functionals.functions.arithmetic_functions.ArithmeticFunctionNode;
-import utils.ItemRandomizer;
+import tree.nodes.functionals.functions.contidional_funcions.ConditionalFunctionNode;
+import tree.nodes.functionals.functions.contidional_funcions.IfElseNode;
+import utils.RandUtils;
 
 import java.util.HashMap;
 
@@ -14,32 +17,16 @@ public abstract class FunctionNode extends FunctionalNode {
         super(childrenNum);
     }
 
-    public static FunctionNode randomFunctionNode(){
-
-        HashMap<Class,Integer> map = new HashMap<>();
-        map.put(ArithmeticFunctionNode.class,4);
-        map.put(IfElseNode.class,3);
-
-        Class c = ItemRandomizer.<Class>rand(map);
+    public static Double weight = 3.0;
 
 
-        String classPath = c.getCanonicalName();
 
-        try{
-            if(c.equals(ArithmeticFunctionNode.class)){
-                return ArithmeticFunctionNode.randomArithmeticFunctionNode();
-            }
-            else{
-                return (FunctionNode) c.newInstance();
-            }
-        }
-        catch (IllegalAccessException e){
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
+    public static FunctionalNode randomNode(){
 
-        return null;
+        return (FunctionNode)RandUtils.randNodeClass(
+                ArithmeticFunctionNode.class,
+                ConditionalFunctionNode.class
+        );
     }
 
 

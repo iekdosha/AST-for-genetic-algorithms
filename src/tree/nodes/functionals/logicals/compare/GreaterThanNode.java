@@ -1,9 +1,14 @@
-package tree.nodes.functionals.logicals;
+package tree.nodes.functionals.logicals.compare;
+
+import tree.nodes.functionals.logicals.LogicalNode;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
-public class GreaterThanNode extends LogicalNode {
+public class GreaterThanNode extends CompareNode {
+
+    public static Double weight = 2.0;
+
     public GreaterThanNode() {
         super(2);
     }
@@ -20,6 +25,6 @@ public class GreaterThanNode extends LogicalNode {
 
     @Override
     public String nodeStr() {
-        return ">";
+        return "GT";
     }
 }

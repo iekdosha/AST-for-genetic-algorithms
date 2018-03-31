@@ -5,6 +5,9 @@ package tree.nodes.functionals.functions.arithmetic_functions;
  */
 public class DivNode extends ArithmeticFunctionNode {
 
+    public static Double weight = 1.0;
+
+
     @Override
     public Double parse() {
         Double den = this.parseChild(1);
@@ -15,6 +18,6 @@ public class DivNode extends ArithmeticFunctionNode {
 
     @Override
     public String nodeStr() {
-        return "/";
+        return "DIV";
     }
 }

@@ -34,7 +34,7 @@ A random tree can be generated and limited to a minimum and maximum depth.
 ```
 Context context = new Context(0.123 ,3.456, 6.789);
 Tree tree = new Tree(context);
-tree.randomTree(2,5);
+tree.randomTree(3,5);
 ```
 Here a Tree object is created with the a given context, a minimum depth of 2 and a maximum depth of 5.
 
@@ -47,54 +47,68 @@ System.out.println("value for test context: " + tree.parse());
 
 A possible output could be:
 ```
-	IF_ELSE
-		>
-			VAR1
-			/
-				4.8384364202537835
-				MAX
-					VAR2
-					MIN
-						3.8938190322623463
-						VAR1
-		IF_ELSE
-			<
-				VAR0
-				-3.3787454345746837
-			*
-				MAX
-					MIN
-						4.9138656390546345
-						VAR1
-					-4.080204168206379
-				VAR1
-			1.202133789377969
-		IF_ELSE
-			<
-				MIN
-					VAR2
-					/
-						VAR0
-						VAR2
-				VAR2
-			IF_ELSE
-				AND
-					VAR1
-					VAR0
-				VAR0
-				-
-					VAR0
-					VAR2
-			/
-				VAR1
-				IF_ELSE
-					<
-						-3.36724944035945
-						VAR1
-					VAR2
-					VAR0
+	|IF_ELSE
+	|	|GT
+	|	|	|IF_ELSE
+	|	|	|	|LT
+	|	|	|	|	|ADD
+	|	|	|	|	|	|VAR1
+	|	|	|	|	|	|-1.5299720926406222
+	|	|	|	|	|VAR0
+	|	|	|	|DIV
+	|	|	|	|	|VAR2
+	|	|	|	|	|VAR1
+	|	|	|	|VAR0
+	|	|	|VAR1
+	|	|IF_ELSE
+	|	|	|AND
+	|	|	|	|LT
+	|	|	|	|	|-2.4596438258446462
+	|	|	|	|	|VAR1
+	|	|	|	|GT
+	|	|	|	|	|2.793188613935202
+	|	|	|	|	|VAR1
+	|	|	|IF_ELSE
+	|	|	|	|GT
+	|	|	|	|	|VAR2
+	|	|	|	|	|MUL
+	|	|	|	|	|	|VAR1
+	|	|	|	|	|	|VAR2
+	|	|	|	|DIV
+	|	|	|	|	|MIN
+	|	|	|	|	|	|VAR0
+	|	|	|	|	|	|VAR1
+	|	|	|	|	|VAR2
+	|	|	|	|VAR2
+	|	|	|IF_ELSE
+	|	|	|	|OR
+	|	|	|	|	|VAR1
+	|	|	|	|	|LT
+	|	|	|	|	|	|VAR2
+	|	|	|	|	|	|VAR1
+	|	|	|	|VAR2
+	|	|	|	|ADD
+	|	|	|	|	|MIN
+	|	|	|	|	|	|VAR1
+	|	|	|	|	|	|VAR2
+	|	|	|	|	|VAR2
+	|	|MUL
+	|	|	|ADD
+	|	|	|	|MUL
+	|	|	|	|	|VAR1
+	|	|	|	|	|VAR0
+	|	|	|	|DIV
+	|	|	|	|	|MIN
+	|	|	|	|	|	|-0.12484554171563467
+	|	|	|	|	|	|VAR2
+	|	|	|	|	|VAR2
+	|	|	|MIN
+	|	|	|	|MUL
+	|	|	|	|	|2.8466134133913084
+	|	|	|	|	|VAR2
+	|	|	|	|VAR1
 
-value for test context: 1.202133789377969
+value for test context: 27.540763968451653
 ```
 
 
@@ -105,5 +119,6 @@ The following features and improvements are planned:
 * Trees Crossover function
 * Context dependent function tree nodes
 * Random node types probability control
+
 and more...
 

@@ -2,7 +2,7 @@ package tree.nodes.non_functionals;
 
 import tree.nodes.Context;
 import tree.nodes.Node;
-import utils.ItemRandomizer;
+import utils.RandUtils;
 
 import java.util.HashMap;
 
@@ -11,15 +11,17 @@ import java.util.HashMap;
  */
 public abstract class LeafNode implements Node {
 
-
-    public static LeafNode randomLeafNode(Context context){
-
-        HashMap<Class,Integer> map = new HashMap<>();
-        map.put(ConstantNode.class,2);
-        map.put(VariableNode.class,3);
+    public static Double weight = 1.0;
 
 
-        Class c = ItemRandomizer.<Class>rand(map);
+    public static Node randomNode(Context context){
+
+        HashMap<Class,Double> map = new HashMap<>();
+        map.put(ConstantNode.class,ConstantNode.weight);
+        map.put(VariableNode.class,VariableNode.weight);
+
+
+        Class c = RandUtils.<Class>randItem(map);
 
 
         if (c.equals(VariableNode.class)){

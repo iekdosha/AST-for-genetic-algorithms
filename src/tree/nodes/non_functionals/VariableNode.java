@@ -8,6 +8,8 @@ import tree.nodes.Node;
  */
 public class VariableNode extends LeafNode {
 
+    public static Double weight = 4.0;
+
     private Context context;
     private Integer id;
 

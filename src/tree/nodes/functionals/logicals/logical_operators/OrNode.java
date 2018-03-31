@@ -6,6 +6,9 @@ import tree.nodes.functionals.logicals.logical_operators.LogicalOperatorNode;
  * Created by itzhak on 24-Mar-18.
  */
 public class OrNode extends LogicalOperatorNode {
+
+    public static Double weight = 1.0;
+
     public OrNode() {
         super(2);
     }

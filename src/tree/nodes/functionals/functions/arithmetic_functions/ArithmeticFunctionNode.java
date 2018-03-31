@@ -5,75 +5,47 @@ import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
 import tree.nodes.functionals.functions.*;
 import tree.nodes.non_functionals.LeafNode;
-import utils.ItemRandomizer;
+import utils.RandUtils;
+import utils.ReflectionUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
 public abstract class ArithmeticFunctionNode extends FunctionNode {
+
+    public static Double weight = 4.0;
+
     public ArithmeticFunctionNode() {
         super(2);
     }
 
 
-    protected static Double getLeafChance(Integer minDepth, Integer maxDepth){
-        Double leafChance = 0.0;
-        if(minDepth == 0){
-            leafChance = 0.5;
-        }
-        if(maxDepth == 0){
-            leafChance = 1.0;
-        }
-        return leafChance;
-    }
-
     @Override
     public Node randomTree(Integer minDepth, Integer maxDepth, Context context) {
 
-
-        Node node;
-        if((Math.random() < 0.5 && minDepth  <= 0) || maxDepth <= 0){
-            node = LeafNode.randomLeafNode(context);
+        for(int i = 0 ; i < this.getChildrenNum(); i++){
+            FunctionalNode child = FunctionNode.randomNode();
+            this.setChild(i,child.maybeLeaf(minDepth-1,maxDepth-1,context));
         }
-        else{
-
-            for(int i = 0 ; i < this.getChildrenNum(); i++){
-                FunctionNode child = FunctionNode.randomFunctionNode();
-                this.setChild(i,child.randomTree(minDepth-1,maxDepth-1,context));
-            }
-            node = this;
-        }
-        return node;
+        return this;
     }
 
-    public static ArithmeticFunctionNode randomArithmeticFunctionNode(){
+    public static FunctionalNode randomNode(){
 
-        HashMap<Class,Integer> map = new HashMap<>();
-        map.put(AddNode.class,1);
-        map.put(SubNode.class,1);
-        map.put(MulNode.class,1);
-        map.put(DivNode.class,1);
-        map.put(MinNode.class,1);
-        map.put(MaxNode.class,1);
+        return (FunctionalNode) RandUtils.randNodeInstance(
+                AddNode.class,
+                SubNode.class,
+                MulNode.class,
+                DivNode.class,
+                MinNode.class,
+                MaxNode.class
+        );
 
-        Class c = ItemRandomizer.<Class>rand(map);
 
-
-        String classPath = c.getCanonicalName();
-
-        try{
-
-            return (ArithmeticFunctionNode) c.newInstance();
-        }
-        catch (IllegalAccessException e){
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
 

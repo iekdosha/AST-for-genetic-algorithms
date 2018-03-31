@@ -1,17 +1,25 @@
-package tree.nodes.functionals.functions;
+package tree.nodes.functionals.functions.contidional_funcions;
 
 import tree.nodes.Context;
 import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
+import tree.nodes.functionals.functions.FunctionNode;
 import tree.nodes.functionals.logicals.LogicalNode;
+import tree.nodes.functionals.logicals.logical_operators.LogicalOperatorNode;
 import tree.nodes.non_functionals.LeafNode;
+import utils.RandUtils;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
 public class IfElseNode extends FunctionNode {
+
+    public static Double weight = 1.0;
+
+
     public IfElseNode() {
         super(3);
+        this.setMinDepth(2);
     }
 
     @Override
@@ -33,22 +41,15 @@ public class IfElseNode extends FunctionNode {
     public Node randomTree(Integer minDepth, Integer maxDepth, Context context) {
 
 
-        Node node;
-        if((Math.random() < 0.5 && minDepth  <= 0) || maxDepth <= 1){
-            node = LeafNode.randomLeafNode(context);
+        FunctionalNode logicalNode = LogicalNode.randomNode();
+        this.setChild(0,logicalNode.randomTree(1,maxDepth-1,context));
+        for(int i = 1 ; i < this.getChildrenNum(); i++){
+            FunctionalNode child = FunctionNode.randomNode();
+            this.setChild(i,child.maybeLeaf(minDepth-1,maxDepth-1,context));
         }
-        else{
-
-            LogicalNode logicalNode = LogicalNode.randomLogicalNode();
-            this.setChild(0,logicalNode.randomTree(1,maxDepth-1,context));
-            for(int i = 1 ; i < this.getChildrenNum(); i++){
-                FunctionNode child = FunctionNode.randomFunctionNode();
-                this.setChild(i,child.randomTree(minDepth-1,maxDepth-1,context));
-            }
-            node = this;
-        }
-        return node;
+        return this;
     }
+
 
 
 }

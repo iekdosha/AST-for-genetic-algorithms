@@ -5,6 +5,8 @@ package tree.nodes.functionals.functions.arithmetic_functions;
  */
 public class MinNode extends ArithmeticFunctionNode {
 
+    public static Double weight = 1.0;
+
     @Override
     public Double parse() {
         return Math.max(this.parseChild(0),this.parseChild(1));

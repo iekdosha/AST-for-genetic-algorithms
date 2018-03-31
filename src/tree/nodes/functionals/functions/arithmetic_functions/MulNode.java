@@ -5,6 +5,8 @@ package tree.nodes.functionals.functions.arithmetic_functions;
  */
 public class MulNode extends ArithmeticFunctionNode {
 
+    public static Double weight = 1.0;
+
 
     @Override
     public Double parse() {
@@ -13,6 +15,6 @@ public class MulNode extends ArithmeticFunctionNode {
 
     @Override
     public String nodeStr() {
-        return "*";
+        return "MUL";
     }
 }

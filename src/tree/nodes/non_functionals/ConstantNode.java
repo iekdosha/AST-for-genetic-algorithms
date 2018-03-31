@@ -9,6 +9,9 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class ConstantNode extends LeafNode  {
+
+    public static Double weight = 2.0;
+
     private Double value;
     public static final Double maxValue = 5.0;
     public static final Double minValue = -5.0;
