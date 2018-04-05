@@ -21,14 +21,6 @@ public abstract class FunctionNode extends FunctionalNode {
 
 
 
-    public static FunctionalNode randomNode(){
-
-        return (FunctionNode)RandUtils.randNodeClass(
-                ArithmeticFunctionNode.class,
-                ConditionalFunctionNode.class
-        );
-    }
-
 
 
 }

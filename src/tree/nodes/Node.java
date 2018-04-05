@@ -5,11 +5,13 @@ package tree.nodes;
  */
 public interface Node {
 
-    Double parse();
-    //Boolean semanticAnalyze();
+    Double parse(Context context);
+
     String nodeStr();
 
-    public static Node randomNode(){
-        return null;
-    }
+
+
+    Node randomSubTree(DepthRestriction restriction);
+
+
 }

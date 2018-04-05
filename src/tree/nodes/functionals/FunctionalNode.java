@@ -1,13 +1,12 @@
 package tree.nodes.functionals;
 
-import sun.rmi.server.InactiveGroupException;
 import tree.nodes.Context;
+import tree.nodes.DepthRestriction;
 import tree.nodes.Node;
-import tree.nodes.non_functionals.LeafNode;
-import utils.RandUtils;
+import tree.nodes.factories.node_factories.LeafFactory;
+import tree.nodes.functionals.logicals.logical_operators.LogicalOperatorNode;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,16 +14,12 @@ import java.util.List;
  */
 public abstract class  FunctionalNode implements Node {
 
-    public static Double weight = 1.0;
     private int minDepth;
 
     private List<Node> children;
 
     private final int childrenNum;
 
-//    public FunctionalNode(){
-//        this(0);
-//    }
 
     public FunctionalNode(int childrenNum){
         this.childrenNum = childrenNum;
@@ -35,19 +30,13 @@ public abstract class  FunctionalNode implements Node {
         }
     }
 
-//    public List<Node> getChildren() {
-//        return children;
-//    }
+
 
     public int getChildrenNum() {
         return childrenNum;
     }
 
-//    protected void setChildrenNum(int childrenNum) {
-//        this.childrenNum = childrenNum;
-//
-//        this.children = new ArrayList<>(this.childrenNum);
-//    }
+
 
     public boolean setChild(int index, Node child){
         if(index < 0 ||  index >= childrenNum){
@@ -75,10 +64,10 @@ public abstract class  FunctionalNode implements Node {
         return children.get(index);
     }
 
-    protected Double parseChild(int index){
+    protected Double parseChild(int index, Context context){
         Node node = this.getChild(index);
         if(node != null){
-            return node.parse();
+            return node.parse(context);
         }
         return Double.NaN;
 
@@ -86,16 +75,14 @@ public abstract class  FunctionalNode implements Node {
 
 
 
-    public abstract Node randomTree(Integer minDepth, Integer maxDepth, Context context);
-
-    public Node maybeLeaf(Integer minDepth, Integer maxDepth, Context context){
-        if((RandUtils.leafChance() && minDepth  <= 0) || maxDepth <= this.getMinDepth()){
-
-            return LeafNode.randomNode(context);
+    public Node randomSubTree(DepthRestriction restriction){
+        if( restriction.getMaxDepth() <= this.getMinDepth()){
+            return LeafFactory.getInstance().createRandomNode(restriction);
         }
-
-        return this.randomTree(minDepth,maxDepth,context);
+        return this.randomTree(restriction);
     }
+
+    public abstract Node randomTree(DepthRestriction restriction);
 
     protected int getMinDepth() {
         return minDepth;

@@ -1,21 +1,20 @@
 package tree.nodes.functionals.logicals.logical_operators;
 
-import tree.nodes.functionals.logicals.logical_operators.LogicalOperatorNode;
+import tree.nodes.Context;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
 public class AndNode extends LogicalOperatorNode {
 
-    public static Double weight = 1.0;
 
     public AndNode() {
         super(2);
     }
 
     @Override
-    public Double parse() {
-        if(this.parseChild(0) == 1.0 && this.parseChild(1) == 1.0){
+    public Double parse(Context context) {
+        if(this.parseChild(0, context) == 1.0 && this.parseChild(1, context) == 1.0){
             return 1.0;
         }
         else{

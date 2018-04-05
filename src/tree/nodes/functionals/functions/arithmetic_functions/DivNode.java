@@ -1,18 +1,19 @@
 package tree.nodes.functionals.functions.arithmetic_functions;
 
+import tree.nodes.Context;
+
 /**
  * Created by itzhak on 24-Mar-18.
  */
 public class DivNode extends ArithmeticFunctionNode {
 
-    public static Double weight = 1.0;
 
 
     @Override
-    public Double parse() {
-        Double den = this.parseChild(1);
+    public Double parse(Context context) {
+        Double den = this.parseChild(1, context);
         if(den == 0) return 1.0;
-        return this.parseChild(0) / den ;
+        return this.parseChild(0,context ) / den ;
     }
 
 

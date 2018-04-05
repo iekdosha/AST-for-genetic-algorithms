@@ -1,7 +1,8 @@
-package tree.nodes.non_functionals;
+package tree.nodes.leaves;
 
-import tree.nodes.Node;
+import tree.nodes.Context;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -10,7 +11,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ConstantNode extends LeafNode  {
 
-    public static Double weight = 2.0;
 
     private Double value;
     public static final Double maxValue = 5.0;
@@ -20,14 +20,21 @@ public class ConstantNode extends LeafNode  {
         this.value = value;
     }
 
+    public ConstantNode(){
+        this.value = minValue + (maxValue - minValue) * (new Random()).nextDouble();;
+    }
+
+
+
     @Override
-    public Double parse() {
+    public Double parse(Context context) {
         return value;
     }
 
     @Override
-    public String nodeStr() {
-        return value.toString();
+    public String nodeStr()
+    {
+        return String.format("%.3f", this.value);
     }
 
     public static ConstantNode getRandomConstantNode(){

@@ -1,10 +1,10 @@
 package utils;
 
+import tree.nodes.Context;
 import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
-import tree.nodes.non_functionals.LeafNode;
+import tree.nodes.leaves.LeafNode;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -20,13 +20,6 @@ public abstract class  RandUtils {
 
         return Math.random() < chance;
     }
-
-    public static boolean leafChance(){
-
-        return Math.random() < LeafNode.weight/(LeafNode.weight+ FunctionalNode.weight);
-    }
-
-
 
 
     public static <T> T randItem(HashMap<T,Double> weightedObjects){
@@ -78,13 +71,6 @@ public abstract class  RandUtils {
 
     }
 
-    public static Node randNodeClass( Class ... args){
-
-        Class c = RandUtils.<Class>randItem(ReflectionUtils.getClassWeightMap(args));
-        return ReflectionUtils.invokeRandomNode(c);
-
-    }
-
 
     public static Node randNodeInstance( HashMap<Class,Double> map){
 
@@ -93,12 +79,8 @@ public abstract class  RandUtils {
 
     }
 
-    public static Node randNodeInstance(Class ... args){
 
-        Class c = RandUtils.<Class>randItem(ReflectionUtils.getClassWeightMap(args));
-        return ReflectionUtils.newNodeInstance(c);
 
-    }
 
 
 }

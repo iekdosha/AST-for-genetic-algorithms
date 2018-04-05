@@ -1,20 +1,18 @@
 package tree.nodes.functionals.functions.contidional_funcions;
 
 import tree.nodes.Context;
+import tree.nodes.DepthRestriction;
 import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
-import tree.nodes.functionals.functions.FunctionNode;
-import tree.nodes.functionals.logicals.LogicalNode;
-import tree.nodes.functionals.logicals.logical_operators.LogicalOperatorNode;
-import tree.nodes.non_functionals.LeafNode;
-import utils.RandUtils;
+import tree.nodes.factories.node_type_factories.FunctionNodeFactory;
+import tree.nodes.factories.node_type_factories.LogicalNodeFactory;
+import tree.nodes.leaves.LeafNode;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
-public class IfElseNode extends FunctionNode {
+public class IfElseNode extends ConditionalFunctionNode {
 
-    public static Double weight = 1.0;
 
 
     public IfElseNode() {
@@ -23,12 +21,12 @@ public class IfElseNode extends FunctionNode {
     }
 
     @Override
-    public Double parse() {
-        if(this.parseChild(0) == 1.0){
-            return this.parseChild(1);
+    public Double parse(Context context) {
+        if(this.parseChild(0,context ) == 1.0){
+            return this.parseChild(1,context );
         }
         else{
-            return this.parseChild(2);
+            return this.parseChild(2, context);
         }
 
     }
@@ -38,14 +36,16 @@ public class IfElseNode extends FunctionNode {
         return "IF_ELSE";
     }
 
-    public Node randomTree(Integer minDepth, Integer maxDepth, Context context) {
+    public Node randomTree(DepthRestriction restriction) {
 
-
-        FunctionalNode logicalNode = LogicalNode.randomNode();
-        this.setChild(0,logicalNode.randomTree(1,maxDepth-1,context));
+        Node logicalNode =  LogicalNodeFactory.getInstance().createRandomNode(restriction.descendMinDepth(2));
+        if(logicalNode instanceof LeafNode){
+            System.out.println(restriction.descendMinDepth(2));
+        }
+        this.setChild(0,logicalNode.randomSubTree(restriction.descendMinDepth(2)));
         for(int i = 1 ; i < this.getChildrenNum(); i++){
-            FunctionalNode child = FunctionNode.randomNode();
-            this.setChild(i,child.maybeLeaf(minDepth-1,maxDepth-1,context));
+            Node child = FunctionNodeFactory.getInstance().createRandomNode(restriction);;
+            this.setChild(i,child.randomSubTree(restriction.descend()));
         }
         return this;
     }

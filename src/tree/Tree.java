@@ -1,31 +1,30 @@
 package tree;
 
 import tree.nodes.Context;
+import tree.nodes.DepthRestriction;
 import tree.nodes.Node;
 import tree.nodes.functionals.FunctionalNode;
-import tree.nodes.functionals.functions.FunctionNode;
-
-import java.util.regex.Pattern;
+import tree.nodes.factories.node_type_factories.FunctionNodeFactory;
 
 /**
  * Created by itzhak on 24-Mar-18.
  */
 public class Tree {
     private Node root;
-    private Context context;
+    //private Context context;
     private int tabCount;
 
 
 
 
-    public Tree(Context context){
-        this(null, context);
-    }
+//    public Tree(Context context){
+//        this(null, context);
+//    }
 
-    public Tree(Node root,Context context){
-        this.root = root;
-        this.context = context;
-    }
+//    public Tree(Node root,Context context){
+//        this.root = root;
+//        this.context = context;
+//    }
 
     public Node getRoot() {
         return root;
@@ -36,11 +35,14 @@ public class Tree {
     }
 
     public void randomTree(Integer minDepth, Integer maxDepth){
+
+        DepthRestriction restriction = new DepthRestriction(minDepth,maxDepth);
+
         minDepth = Math.min(minDepth,maxDepth);
         if(minDepth <= 0) {
             throw  new IllegalArgumentException("Arguments min/max depth must be at least 1");
         }
-        this.root = ((FunctionalNode)FunctionNode.randomNode()).randomTree(minDepth,maxDepth,context);
+        this.root = ((FunctionalNode)(FunctionalNode) FunctionNodeFactory.getInstance().createRandomNode(restriction)).randomTree(restriction);
     }
 
     private String getTabs(){
@@ -74,8 +76,8 @@ public class Tree {
         return treeStr(root);
     }
 
-    public Double parse(){
-        return root.parse();
+    public Double parse(Context context){
+        return root.parse(context);
     }
 
 }
